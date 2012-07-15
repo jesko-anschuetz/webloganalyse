@@ -1,0 +1,47 @@
+weblogauswertung.php
+
+Dieses Skript vereinfacht es erheblich, Schülern 
+(der Einfachheit halber mal nur die männliche Form,
+die Leserinnen mögen mir verzeihen) auf die Schliche
+zu kommen, die gegen die (hoffentlich vorhandene)
+Benutzerordnung an den Schulrechnern verstoßen.
+
+Die Logdatei, die die Internet-Zugriffe der Schüler protokolliert,
+wird auf unerwünschte Schlagworte hin gefiltert und angezeigt.
+Ein Filter, sorgt für die Übersichtlichkeit.
+Durch einen Klick auf die IP-Adresse kann man sich anzeigen lassen, 
+wer an der betreffenden Arbeitsstation angemeldet war.
+
+- Alle Einstellungen können auf der Webseite eingetragen werden.
+- Suchworte und Anzeigefilter werden im Webbrowser konfiguriert.
+- Der "Bösewicht" wird direkt angezeigt, falls er automatisch 
+  ermittelt werden kann.
+- Falls der "Bösewicht" ein Lehrer ist, wird die Ausgabe maskiert,
+  um die Privatsphäre zu schützen. (Voreingestellt, aber konfigurierbar)
+- Es werden auch die gezippten Userlogins.X.gz-Dateien durchsucht (konfigurierbar)
+- Ausgabeformat ist auf Text umstellbar (für die Cron-Job-Fetischisten ;-)
+
+Installation:
+1. tgz-Datei runterladen (manche Browser laden sie als ".tar" Datei runter)
+   eventuell ist es auch eine Zip-Datei
+2. auf dem Server in ein zugriffsgeschütztes Webverzeichnis (unterhalb /var/www/) kopieren.
+3. mittels # tar -xzf weblogauswertung.tgz entpacken (oder weblogauswertung.tar)
+   ggf. mittels unzip weblogauswertung.zip entpacken falls es eine Zip-Datei war.
+4. "Installieren" mit ./weblog_installieren
+   dabei wird das Verzeichnis für nicht-Administratoren geschützt
+5. mittels # /usr/bin/scp -P 222 root@ipcop:/var/log/squid/access.log skriptverzeichnis
+   Logdatei ins Skriptverzeichnis.
+6. evtl Schritt 5 per Cron-Job erledigen lassen, damit das Skript immer aktuelle Log-Dateien hat.
+
+Benutzung:
+Einfach das Skript mit dem Webbrowser aufrufen.
+Mit dem Knopf "Konfigurieren" gelangt man zu Konfigurationsseite. 
+Dort kann man eigentlich alles so lassen wie es ist.
+Lediglich die Suchwortliste sollte man anpassen.
+Der Filter auf der Suchseite blendet unnötige Einträge aus. 
+Verschiedene Wörter trennt man mit | (Alt-GR + <>)
+***VIEL ERFOLG***
+
+über eine Rückmeldung würde ich mich freuen!
+--> jesko.anschuetz@montfort-realschule.de
+

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Mini-Skript zum Erzeugen einer .htaccess-Datei, 
+# die nur Domänenadministratoren der openML 5 Zugriff erlaubt.
+# Die vorhandene .htaccess wird ohne Rückfrage überschrieben.
+# DIE SERVER-IP MUSS GGF. ANGEPASST WERDEN!
+#############################################
+# Jesko Anschütz, Juli 2012
+
+echo "AuthType Basic" > .htaccess
+echo "AuthName \"Nur Administratoren! Kein Zugriff ohne Passwort \"" >> .htaccess
+echo "AuthBasicProvider ldap" >> .htaccess
+echo "AuthLDAPUrl ldap://10.16.1.1/$(smbldap-usershow administrator|head -n1|sed -e '/dn/s/dn: uid=administrator,ou=accounts,//g')?uid" >> .htaccess
+echo "AuthLDAPGroupAttributeIsDN off" >> .htaccess
+echo "AuthLDAPGroupAttribute memberUid" >> .htaccess
+echo "Require ldap-group cn=domadmins,ou=groups,$(smbldap-usershow administrator|head -n1|sed -e '/dn/s/dn: uid=administrator,ou=accounts,//g')" >> .htaccess
+
+echo "Datei mit diesem Inhalt erzeugt:"
+echo "--------------------------------------------------"
+cat .htaccess
+echo "--------------------------------------------------"
+
